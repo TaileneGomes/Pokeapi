@@ -1,2 +1,7 @@
 # Pokeapi
 Trabalho utilizando HTMl, CSS, JS...
+
+favicon <link rel="icon" type="image/png" sizes="16x16"  href="/favicons/favicon-16x16.png">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="theme-color" content="#ffffff">
+
