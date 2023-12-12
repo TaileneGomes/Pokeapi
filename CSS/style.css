@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=0xanium:wgt@300;400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Oxanium:wght@200;300;400;500;600;700;800&display=swap");
 
 *{
     margin: 0;
@@ -9,7 +9,7 @@
 body{
 
     text-align: center;
-    background: linear-gradient(to bottom, #6ab7f5, #fff);
+    background: linear-gradient(to bottom, #dfcbe8, #fff);
     min-height: 100vh;
 }
 main{
@@ -17,9 +17,4 @@ main{
     display: inline-block;
     margin-top: 2%;
     padding: 15px;
-}
-.pokedex{
-    width: 100%;
-    max-width: 425px;
-
 }
