@@ -3,7 +3,7 @@ const spinner = document.querySelector("#spinner");
 const previous = document.querySelector("#previous");
 const next = document.querySelector("#next");
 
-let limit = 8;
+let limit = 11;
 let offset = 1;
 
 previous.addEventListener("click", () => {
@@ -115,7 +115,7 @@ function progressBars(stats) {
 
 function removeChildNodes(parent) {
   while (parent.firstChild) {
-    parent.removeChild(parent.firstChild);
+    parent.removeChild(parent.lastChild);
   }
 }
 
