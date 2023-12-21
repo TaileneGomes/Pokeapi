@@ -3,20 +3,20 @@ const spinner = document.querySelector("#spinner");
 const previous = document.querySelector("#previous");
 const next = document.querySelector("#next");
 
-let limit = 11;
+let limit = 12; // Alteração para mostrar 12 cards por vez
 let offset = 1;
 
 previous.addEventListener("click", () => {
-  if (offset != 1) {
-    offset -= 9;
-    removeChildNodes(pokemonContainer);
+  if (offset > limit) {
+    offset -= limit;
+    removePokemonNodes(pokemonContainer);
     fetchPokemons(offset, limit);
   }
 });
 
 next.addEventListener("click", () => {
-  offset += 9;
-  removeChildNodes(pokemonContainer);
+  offset += limit;
+  removePokemonNodes(pokemonContainer);
   fetchPokemons(offset, limit);
 });
 
@@ -31,7 +31,7 @@ function fetchPokemon(id) {
 
 function fetchPokemons(offset, limit) {
   spinner.style.display = "block";
-  for (let i = offset; i <= offset + limit; i++) {
+  for (let i = offset; i < offset + limit; i++) {
     fetchPokemon(i);
   }
 }
@@ -85,7 +85,7 @@ function progressBars(stats) {
     const stat = stats[i];
 
     const statPercent = stat.base_stat / 2 + "%";
-    const statContainer = document.createElement("stat-container");
+    const statContainer = document.createElement("div");
     statContainer.classList.add("stat-container");
 
     const statName = document.createElement("p");
@@ -113,10 +113,11 @@ function progressBars(stats) {
   return statsContainer;
 }
 
-function removeChildNodes(parent) {
-  while (parent.firstChild) {
-    parent.removeChild(parent.lastChild);
-  }
+function removePokemonNodes(parent) {
+  const pokemonNodes = parent.querySelectorAll('.flip-card');
+  pokemonNodes.forEach((node) => {
+    parent.removeChild(node);
+  });
 }
 
 fetchPokemons(offset, limit);
