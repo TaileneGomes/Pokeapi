@@ -5,8 +5,17 @@
   box-sizing: border-box;
   font-family: 'oxanium', cursive;
 }
+header {
+  background-color:  rgba(108, 183, 240, 1);
+  padding: 0px;
+  text-align: center;
+}
+img {
+  max-width: 800px;
+height: auto;  
+}
 body {
-    background: rgb(85, 144, 189);
+    background: rgba(85, 144, 189, 1);
     background: linear-gradient(
       90deg,
       rgba(85, 144, 189, 1) 0%,
@@ -42,7 +51,7 @@ body {
   }
   
   .img-container {
-    background-image: url("./SVG");
+    background-image: url("blob.svg");
     background-repeat: no-repeat;
     background-position: center;
   }
