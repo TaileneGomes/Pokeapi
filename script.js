@@ -22,13 +22,14 @@ next.addEventListener("click", () => {
 
 function searchFormSubmitted(event) {
   event.preventDefault();
-  const searchInput = document.getElementById('searchInput').value;
+  const searchInput = document.getElementById("searchInput").value;
   searchPokemon(searchInput);
 }
 
 function fetchPokemon(identifier) {
-  return fetch(`https://pokeapi.co/api/v2/pokemon/${identifier}/`)
-    .then((res) => res.json());
+  return fetch(`https://pokeapi.co/api/v2/pokemon/${identifier}/`).then((res) =>
+    res.json()
+  );
 }
 
 function fetchAndDisplayPokemons(offset, limit) {
@@ -149,7 +150,7 @@ function progressBars(stats) {
 }
 
 function removePokemonNodes(parent) {
-  const pokemonNodes = parent.querySelectorAll('.flip-card');
+  const pokemonNodes = parent.querySelectorAll(".flip-card");
   pokemonNodes.forEach((node) => {
     parent.removeChild(node);
   });
