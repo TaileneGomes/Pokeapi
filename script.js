@@ -20,7 +20,6 @@ next.addEventListener("click", () => {
   fetchAndDisplayPokemons(offset, limit);
 });
 
-// Adicionada a função searchFormSubmitted para lidar com o envio do formulário de pesquisa
 function searchFormSubmitted(event) {
   event.preventDefault();
   const searchInput = document.getElementById('searchInput').value;
@@ -46,6 +45,10 @@ function fetchAndDisplayPokemons(offset, limit) {
       pokemonDataArray.forEach((pokemonData) => {
         createPokemon(pokemonData);
       });
+    })
+    .catch((error) => {
+      console.error("Error fetching Pokémon:", error);
+      spinner.style.display = "none";
     });
 }
 
@@ -58,7 +61,7 @@ function searchPokemon(identifier) {
       spinner.style.display = "none";
     })
     .catch((error) => {
-      console.error("Error searching for Pokemon:", error);
+      console.error(`Error searching for Pokémon: ${error.message}`);
       spinner.style.display = "none";
     });
 }
