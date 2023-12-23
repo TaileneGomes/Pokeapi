@@ -3,37 +3,64 @@ const spinner = document.querySelector("#spinner");
 const previous = document.querySelector("#previous");
 const next = document.querySelector("#next");
 
-let limit = 12; // Alteração para mostrar 12 cards por vez
+let limit = 12;
 let offset = 1;
 
 previous.addEventListener("click", () => {
   if (offset > limit) {
     offset -= limit;
     removePokemonNodes(pokemonContainer);
-    fetchPokemons(offset, limit);
+    fetchAndDisplayPokemons(offset, limit);
   }
 });
 
 next.addEventListener("click", () => {
   offset += limit;
   removePokemonNodes(pokemonContainer);
-  fetchPokemons(offset, limit);
+  fetchAndDisplayPokemons(offset, limit);
 });
 
-function fetchPokemon(id) {
-  fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
-    .then((res) => res.json())
-    .then((data) => {
-      createPokemon(data);
+// Adicionada a função searchFormSubmitted para lidar com o envio do formulário de pesquisa
+function searchFormSubmitted(event) {
+  event.preventDefault();
+  const searchInput = document.getElementById('searchInput').value;
+  searchPokemon(searchInput);
+}
+
+function fetchPokemon(identifier) {
+  return fetch(`https://pokeapi.co/api/v2/pokemon/${identifier}/`)
+    .then((res) => res.json());
+}
+
+function fetchAndDisplayPokemons(offset, limit) {
+  spinner.style.display = "block";
+
+  const promises = [];
+  for (let i = offset; i < offset + limit; i++) {
+    promises.push(fetchPokemon(i));
+  }
+
+  Promise.all(promises)
+    .then((pokemonDataArray) => {
       spinner.style.display = "none";
+      pokemonDataArray.forEach((pokemonData) => {
+        createPokemon(pokemonData);
+      });
     });
 }
 
-function fetchPokemons(offset, limit) {
+function searchPokemon(identifier) {
   spinner.style.display = "block";
-  for (let i = offset; i < offset + limit; i++) {
-    fetchPokemon(i);
-  }
+  fetchPokemon(identifier)
+    .then((pokemonData) => {
+      removePokemonNodes(pokemonContainer);
+      createPokemon(pokemonData);
+      spinner.style.display = "none";
+    })
+    .catch((error) => {
+      console.error("Error searching for Pokemon:", error);
+      spinner.style.display = "none";
+    });
 }
 
 function createPokemon(pokemon) {
@@ -75,6 +102,11 @@ function createPokemon(pokemon) {
   cardContainer.appendChild(card);
   cardContainer.appendChild(cardBack);
   pokemonContainer.appendChild(flipCard);
+
+  const screenWidth = window.innerWidth;
+  const cardWidth = screenWidth / 4;
+  flipCard.style.width = cardWidth + "px";
+  cardContainer.style.width = "100%";
 }
 
 function progressBars(stats) {
@@ -119,5 +151,3 @@ function removePokemonNodes(parent) {
     parent.removeChild(node);
   });
 }
-
-fetchPokemons(offset, limit);
